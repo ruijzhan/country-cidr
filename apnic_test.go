@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-const apnicNum = 75
+const apnicNum = 77
 
 var lan = countryT{
 	Name: "LAN",
@@ -47,7 +47,7 @@ func Test_Bindata(t *testing.T) {
 	var cs []countryT
 	err = json.Unmarshal(jsonBytes, &cs)
 	assert.NoError(t, err)
-	assert.Equal(t, len(cs), apnicNum+1) //lan included
+	assert.Equal(t, apnicNum+1, len(cs)) //lan included
 }
 
 func Test_ParseAPNIC(t *testing.T) {
@@ -57,7 +57,7 @@ func Test_ParseAPNIC(t *testing.T) {
 	assert.NoError(t, err)
 	defer resp.Body.Close()
 	apnic := apnicParse(resp.Body)
-	assert.Equal(t, len(apnic), apnicNum)
+	assert.Equal(t, apnicNum, len(apnic))
 
 	apnic = append(apnic, lan)
 	jsonBytes, err := json.MarshalIndent(apnic, "", "    ")

@@ -1,6 +1,7 @@
 package country_cidr
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -41,9 +42,19 @@ func TestCountryContains(t *testing.T) {
 			"10.100.1.1",
 			true,
 		},
+		{
+			"US",
+			"52.4.20.24",
+			false,
+		},
+		{
+			"CN",
+			"118.184.26.113",
+			false,
+		},
 	}
 	for _, c := range cases {
-		assert.Equal(t, Country(c.Country).ContainsIPstr(c.IP), c.Contains)
+		assert.Equal(t, Country(c.Country).ContainsIPstr(c.IP), c.Contains, fmt.Sprintf("Case: %s %s %t", c.Country, c.IP, c.Contains))
 	}
 }
 
